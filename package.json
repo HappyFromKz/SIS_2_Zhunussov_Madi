@@ -1,0 +1,15 @@
+{
+  "name": "toolshop-playwright",
+  "version": "1.0.0",
+  "description": "SIS 2 - Test automation of practicesoftwaretesting.com with Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.48.2",
+    "@types/node": "20.14.10",
+    "typescript": "5.5.4"
+  }
+}
