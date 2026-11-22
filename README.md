@@ -34,6 +34,8 @@ npx playwright show-report
 
 **Known defect:** the test *"a user cannot read another user's cart"* is marked with `test.fail()` — it documents BUG-001 and keeps the pipeline green. If the defect is fixed, the test will report it.
 
+**Known CI issue — Cloudflare bot protection.** On GitHub-hosted runners the UI tests fail: practicesoftwaretesting.com answers runner IPs (data-centre addresses) with a Cloudflare "Performing security verification" challenge instead of the page, so locators time out — see [screenshots/ci-cloudflare.png](screenshots/ci-cloudflare.png), taken from the `test-results-4` artefact. The same tests pass locally in CI mode (`CI=true npx playwright test`, home IP), and the API tests pass in CI because the API host does not show the challenge. This is an environment restriction of a public demo site, not a test defect; bypassing the protection would be inappropriate. Options for a real project: a test environment without bot protection, an allowlist for CI IPs, or a self-hosted runner.
+
 ### Runtime
 
 | Configuration | Total run time | Run tests step (slowest shard) | Run |
