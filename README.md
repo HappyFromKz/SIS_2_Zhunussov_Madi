@@ -40,10 +40,12 @@ npx playwright show-report
 
 | Configuration | Total run time | Run tests step (slowest shard) | Run |
 | --- | --- | --- | --- |
-| 1 job, no sharding | X min Y s | X min Y s | [run](LINK) |
-| 4 shards + merge | X min Y s | X min Y s | [run](LINK) |
+| 1 job, no sharding | 30 min 18 s | about 29 min | [run #9](https://github.com/HappyFromKz/SIS_2_Zhunussov_Madi/actions/workflows/playwright.yml?query=event%3Aworkflow_dispatch) |
+| 4 shards + merge | 10 min 58 s | 9 min 34 s (shard 3/4; others: 6 min 19 s, 9 min 27 s, 3 min 19 s) | [run #2](https://github.com/HappyFromKz/SIS_2_Zhunussov_Madi/actions/runs/45054142074) |
 
-Median of 3 runs via `workflow_dispatch`. Conclusion: CONCLUSION
+One run per configuration (not a median of 3) because of the submission deadline.
+
+**Conclusion:** sharding cut the total run time from 30 min 18 s to 10 min 58 s (about 2.8 times faster). The absolute numbers are inflated by the Cloudflare challenge (see above): each blocked UI test spends about 3.3 minutes (60 s timeout x 3 attempts with `retries: 2`), while the API tests take seconds. This also explains why the shards are uneven (3 min 19 s to 9 min 34 s): Playwright splits tests by count, not by duration, so the shard that got more blocked UI tests finishes last. Each shard also repeats about 30 s of setup (checkout, `npm ci`, browser install).
 
 ### Running locally
 
